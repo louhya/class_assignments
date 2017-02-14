@@ -5,10 +5,9 @@ def gottogo():
     print(ucolor+"? That's a nice color")
     ufood = input('What is your favorite food? ')
     print(ufood+" sound yummy")
+    havetogo = input('Do you have to go now? ')
+    if havetogo == 'no':
+        gottogo()
 gottogo()
 
-havetogo = input('Do you have to go now? ')
-if havetogo == 'no':
-    gottogo()
-else:
-    print('Bye now')
+

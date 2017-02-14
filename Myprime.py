@@ -1,9 +1,9 @@
-PrimeList =[]
-import math
-for i in range(100):
-    def isPrime(i):
-# Returns True if num is a prime number, otherwise False.
-# Note: Generally, isPrime() is slower than primeSieve().
-# all numbers less than 2 are not prime
-if num < 2:
-return False
+PrimeList = []
+num = int(input('Please enter a number?'))
+for i in range(3, num+1, 2):    
+    if i >= 2:
+        if i % 2 != 0 and i % 3 != 0 and i % 5 != 0 and i % 7 != 0:
+            PrimeList.append(i)
+            
+else:
+    print (PrimeList) 
