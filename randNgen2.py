@@ -1,14 +1,25 @@
 import random
 y = random.randint(1,10)
 print(y)
-for x in range(0, 3):
-    num = int(input('Please enter a number?'))
-    if y== num:
-        print( "Congratulation you guessed the right number")
-    elif y== num-1 or y== num+1:
-        print("You are Hot")
-    elif y== num-2 or y== num+2:
-        print("You are Warm")
-    else:
-        print("You are Cold")
+num = 0
+count = 0
+while (num != y and count < 3):
+    try:
+        num = int(input('Please enter a number between 1 - 10: '))
+        if y== num:
+            print( "Congratulation you guessed the right number")
+        elif abs(y-num) == 1:
+            print("You are Hot")
+            count+=1
+            print("count = ", count)
+        elif abs(y-num) == 2:
+            print("You are Warm")
+            count += 1
+            print("count = ", count)
+        else:
+            print("You are Cold")
+            count += 1
+            print("count = ", count)
+    except:
+        print("Invalid input, ", end=" ")
 
