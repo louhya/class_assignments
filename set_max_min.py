@@ -17,4 +17,14 @@
 #    print(setXnum)
 
 Xlist = input("Please enter all the numbers in your list separated by one space: ").split()
-print(Xlist[0])
+print(Xlist)
+new_list = []
+while Xlist:
+    minimum = Xlist[0]  # arbitrary number in list 
+    for x in Xlist: 
+        if x < minimum:
+            minimum = x
+    new_list.append(minimum)
+    Xlist.remove(minimum)    
+
+print (new_list)
