@@ -16,44 +16,14 @@ grammatically correct nor will it check for spelling errors.
 
 To send us your comments please email us at aslc.dev@acme.com
 ''')
-while True:
-    output_mode = input ("Do you want to: S) Display the result on the screen? B) Display the result on the screen and save it to a file?  F) save the result to a file? Q) To Quit?[S/B/F/Q]? : ")
-    if output_mode == "S":
-        print ("Display Only")
-        break
-    elif output_mode == "B":
-        print ("Display and Save.")
-        out_file = input("Please enter output file name: ")
-        if os.path.isfile(out_file) and os.access(out_file, os.R_OK):
-            output_mode = output_mode+input("File exists do you want to: A) Append to it? O)Overwrite it?[A/O]? : ")
-            print(output_mode)
-        else:
-            pass
-        break
-    elif output_mode == "F":
-        print ("Save only.")
-        out_file = input("Please enter output file name: ")
-        if os.path.isfile(out_file) and os.access(out_file, os.R_OK):
-            output_mode = output_mode+input("File exists do you want to: A) Append to it? O)Overwrite it?[A/O]? : ")
-            print(output_mode)
-        else:
-            pass
-        break
-    elif output_mode == "Q":
-        import sys
-        sys.exit(0)
+import subprocess
+import platform
+def clear():
+    subprocess.run( "cls" if platform.system() == "Windows" else "clear", shell=True)
+clear()
 
 in_file = input("Please enter the report file name: ")
-
-#import subprocess
-#import platform
-
-
-#def clear():
-
-#    subprocess.Popen( "cls" if platform.system() == "Windows" else "clear", shell=True)
-
-#clear()
+print("\n" * 2)
 
 try:
 
@@ -91,7 +61,7 @@ s_count = len(s2list)
 for i in range((len(s2list))):
     tempwords = s2list[i].split(None)
     temp_sentence_len = len(tempwords)
-    if temp_sentence_len < 7:
+    if 3 < temp_sentence_len <= 7:
         s_count -= 1
     else:
         for words in tempwords:
@@ -100,13 +70,43 @@ for i in range((len(s2list))):
 
             else:
                 pass
-        if temp_sentence_len < 7:
+        if 3 < temp_sentence_len <= 7:
             s_count -= 1
         else:
             w_count += temp_sentence_len
 
 
 textf.close()
+
+while True:
+    output_mode = input ("Do you want to:\nS) Display the result on the screen?\nB) Display the result on the screen and save it to a file?\nF) save the result to a file?\nQ) To Quit? [S/B/F/Q]? : ")
+    output_mode = output_mode.upper()
+    print("\n" * 2)
+    if output_mode == "S":
+        break
+    elif output_mode == "B":
+        out_file = input("\nPlease enter output file name: ")
+        if os.path.isfile(out_file) and os.access(out_file, os.R_OK):
+            f_a_o = input("\nFile exists do you want to:\nA) Append to it?\nO)Overwrite it?[A/O]? : ")
+            f_a_o = f_a_o.upper()
+            output_mode = output_mode + f_a_o
+            print(output_mode)
+        else:
+            pass
+        break
+    elif output_mode == "F":
+        out_file = input("\nPlease enter output file name: ")
+        if os.path.isfile(out_file) and os.access(out_file, os.R_OK):
+            f_a_o = input("\nFile exists do you want to:\nA) Append to it?\nO)Overwrite it?[A/O]? : ")
+            f_a_o = f_a_o.upper()
+            output_mode = output_mode + f_a_o
+            print(output_mode)
+        else:
+            pass
+        break
+    elif output_mode == "Q":
+        import sys
+        sys.exit(0)
 
 if output_mode == "S":
     print("\n")
@@ -122,7 +122,9 @@ if output_mode == "S":
     print ("Adjusted sentences:",s_count)
     print ("Adjusted words:",w_count)
     print ("Adjusted Average Sentence Length:",w_count/s_count)
-elif output_mode == "BO":    print("\n")
+
+elif output_mode == "BO":
+    print("\n")
     print("Report file name:", in_file)
     print('-' * 75 + "\n")
     print("Lines:", lines)
@@ -135,8 +137,8 @@ elif output_mode == "BO":    print("\n")
     print("Adjusted sentences:", s_count)
     print("Adjusted words:", w_count)
     print("Adjusted Average Sentence Length:", w_count / s_count)
-        print("Save only / overwrite.")
-        with open(out_file, "w") as out_f:
+    print("Save only / overwrite.")
+    with open(out_file, "w") as out_f:
             out_f.write("\n" * 1)
             out_f.write("Report file name: %s " %(in_file) + "\n" *1)
             out_f.write('-' * 75 + "\n")
@@ -152,8 +154,21 @@ elif output_mode == "BO":    print("\n")
             out_f.write("Adjusted Average Sentence Length: %d" %(w_count / s_count) + "\n")
 
 elif output_mode == "BA":
-    with open(out_file, "a") as out_f:
-        out_f.write("\n" * 1)
+    print("\n")
+    print("Report file name:", in_file)
+    print('-' * 75 + "\n")
+    print("Lines:", lines)
+    print("blank lines:", blanklines)
+    print("sentences:", sentences)
+    print("words:", unadj_words)
+    print("Average Sentence Length:", unadj_words / sentences)
+    print('-' * 75 + "\n")
+    print('Below all words whith less than 4 characters, and sentences containing less than 7 words are ignored')
+    print("Adjusted sentences:", s_count)
+    print("Adjusted words:", w_count)
+    print("Adjusted Average Sentence Length:", w_count / s_count)
+    print("Save only / overwrite.")
+    with open(out_file, "w") as out_f:
         out_f.write("\n" * 1)
         out_f.write("Report file name: %s " % (in_file) + "\n" * 1)
         out_f.write('-' * 75 + "\n")
@@ -163,7 +178,8 @@ elif output_mode == "BA":
         out_f.write("words: %d" % (unadj_words) + "\n")
         out_f.write("Average Sentence Length: %d" % (unadj_words / sentences) + "\n")
         out_f.write('-' * 75 + "\n")
-        out_f.write('Below all words whith less than 4 characters, and sentences containing less than 7 words are ignored' + "\n")
+        out_f.write(
+            'Below all words whith less than 4 characters, and sentences containing less than 7 words are ignored' + "\n")
         out_f.write("Adjusted sentences: %d" % (s_count) + "\n")
         out_f.write("Adjusted words: %d" % (w_count) + "\n")
         out_f.write("Adjusted Average Sentence Length: %d" % (w_count / s_count) + "\n")
@@ -184,8 +200,8 @@ elif output_mode == "FA":
         out_f.write("Adjusted sentences: %d" % (s_count) + "\n")
         out_f.write("Adjusted words: %d" % (w_count) + "\n")
         out_f.write("Adjusted Average Sentence Length: %d" % (w_count / s_count) + "\n")
+
 elif output_mode == "FO":
-        print("Save only / overwrite.")
         with open(out_file, "w") as out_f:
             out_f.write("\n" * 1)
             out_f.write("Report file name: %s " %(in_file) + "\n" *1)
