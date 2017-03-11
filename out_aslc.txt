@@ -1,0 +1,13 @@
+
+Report file name: C:\Users\Student_06-PT\PycharmProjects\class_assignments\aslcSample2.txt 
+---------------------------------------------------------------------------
+Lines: 5 
+blank lines: 0
+sentences: 5
+words: 166
+Average Sentence Length: 33
+---------------------------------------------------------------------------
+Below all words whith less than 4 characters, and sentences containing less than 7 words are ignored
+Adjusted sentences: 8
+Adjusted words: 58
+Adjusted Average Sentence Length: 7
