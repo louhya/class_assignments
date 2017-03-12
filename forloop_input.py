@@ -1,3 +1,5 @@
+ur_phrase = []
+ur_phrase = int(input('Please Enter your phrase'))
 num = int(input('How many numbers would you like to input'))
 num2avg = 0
 Lnum = []
